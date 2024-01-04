@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import LoginForm from "@/app/_components/auth/loginForm";
 import RegisterForm from "@/app/_components/auth/registerForm";
+import RootLayout from "../layout";
 
 const Auth = () => {
     return(
