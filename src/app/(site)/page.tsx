@@ -1,10 +1,15 @@
+/* eslint-disable react/no-unescaped-entities */
+
 import Image from 'next/image'
 import Header from '../_components/global/header'
 import Footer from '../_components/global/footer'
 
 export default function Home() {
-  return (
-    <main className="flex flex-col items-center justify-between p-24">
-    </main>
-  )
+    return (
+        <>
+            <h2>Welcome to our great plateforme!</h2>
+            <p>If your searching an application that helps you to manage your inventory(like what you have in your kitchen) or your collection, you're at the right place.</p>
+            <p>But before all, do you have an account? If not go <a>here</a>! If yes come <a>here</a>!</p>
+        </>
+    )
 }

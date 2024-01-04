@@ -5,7 +5,7 @@ import RootLayout from "../layout";
 
 const Auth = () => {
     return(
-        <div>
+        <div className="w-fit">
             <h2>Auth page</h2>
             <LoginForm></LoginForm>
             <p>Or if you don't have an account yet</p>
