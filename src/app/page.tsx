@@ -1,9 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 
-import Image from 'next/image'
-import Header from '../_components/global/header'
-import Footer from '../_components/global/footer'
-
 export default function Home() {
     return (
         <>
