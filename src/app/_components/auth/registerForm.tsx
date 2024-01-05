@@ -12,6 +12,7 @@ const RegisterForm = () => {
     
     return(
         <form className="flex flex-col" onSubmit={onRegister}>
+            <h2>Register</h2>
             <div className={divClasses}>
                 <label className={labelClass} htmlFor="username">Username</label>
                 <input className="text-black" type="text" name="username" id="username" />

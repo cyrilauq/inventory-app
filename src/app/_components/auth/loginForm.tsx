@@ -12,6 +12,7 @@ const LoginForm = () => {
 
     return(
         <form className="flex flex-col" onSubmit={onLogin}>
+            <h2>Login</h2>
             <div className={divClasses}>
                 <label className={labelClass} htmlFor="username">Username</label>
                 <input className="text-black" type="text" name="username" id="username" />
