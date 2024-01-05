@@ -16,7 +16,7 @@ const Header = () => {
     function getForm() {
         const formClasses = "fixed mx-auto top-56 backdrop-blur-md flex"
         if(formName === "signin") {
-            return <AuthFormContainer onClosure={() => handleNavEvent("")}><LoginForm /></AuthFormContainer>
+            return <AuthFormContainer onClosure={() => handleNavEvent("")}><LoginForm onLogin={args => console.log(args)} /></AuthFormContainer>
         } else if(formName === "signup") {
             return <AuthFormContainer onClosure={() => handleNavEvent("")}><RegisterForm /></AuthFormContainer>
         }

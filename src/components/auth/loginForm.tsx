@@ -1,26 +1,45 @@
 "use client";
 
-import { FormEvent } from "react";
+import { FormEvent, SetStateAction, useState } from "react";
 
-const LoginForm = () => {
+interface LoginFormProps {
+    onLogin(args: {login: string, password: string}): void;
+}
+
+interface FormElements extends HTMLFormControlsCollection   {
+    login: HTMLInputElement;
+    password: HTMLInputElement;
+}
+
+interface Form extends HTMLFormElement {
+    readonly elements: FormElements;
+}
+
+const LoginForm = (props: LoginFormProps) => {
     const labelClass = "w-[128px]";
     const divClasses = "flex flex-row my-2";
 
-    function onLogin(event: FormEvent<HTMLFormElement>) {
+    function onLogin(event: FormEvent<Form>) {
         event.preventDefault();
+        const elements = event.currentTarget.elements;
+        console.log(elements);
+        props.onLogin({ login: elements.login.value, password: elements.password.value })
     }
 
     return(
         <form className="flex flex-col" onSubmit={onLogin}>
             <h2>Login</h2>
             <div className={divClasses}>
-                <label className={labelClass} htmlFor="username">Username</label>
-                <input className="text-black" type="text" name="username" id="username" />
+                <label className={labelClass} htmlFor="login">Login</label>
+                <input className="text-black" type="text" name="login" id="login" />
             </div>
             <div className={divClasses}>
                 <label className={labelClass} htmlFor="password">Password</label>
                 <input className="text-black" type="password" name="password" id="password" />
             </div>
+            <button>
+                Signin
+            </button>
         </form>
     );
 };

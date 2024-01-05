@@ -6,7 +6,7 @@ const Auth = () => {
     return(
         <div className="w-fit">
             <h2>Auth page</h2>
-            <LoginForm></LoginForm>
+            <LoginForm onLogin={args => console.log(args)}></LoginForm>
             <p>Or if you don't have an account yet</p>
             <RegisterForm></RegisterForm>
         </div>
