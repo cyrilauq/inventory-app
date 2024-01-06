@@ -13,18 +13,21 @@ const Header = () => {
         setFormName(event);
     }
 
+    function handleLogin(args: { login: string, password: string}) {
+        console.log(args)
+    }
+
     function getForm() {
-        const formClasses = "fixed mx-auto top-56 backdrop-blur-md flex"
         if(formName === "signin") {
-            return <AuthFormContainer onClosure={() => handleNavEvent("")}><LoginForm onLogin={args => console.log(args)} /></AuthFormContainer>
+            return <AuthFormContainer onClosure={() => handleNavEvent("")}><LoginForm onLogin={handleLogin} /></AuthFormContainer>;
         } else if(formName === "signup") {
-            return <AuthFormContainer onClosure={() => handleNavEvent("")}><RegisterForm /></AuthFormContainer>
+            return <AuthFormContainer onClosure={() => handleNavEvent("")}><RegisterForm /></AuthFormContainer>;
         }
     }
     return(
         <header className="w-[100%] flex justify-center items-center text-center min-h-24">
             <h1 className="text-2xl font-bold">Inventory manager</h1>
-            <AuthNav handleClick={value => handleNavEvent(value)} />
+            <AuthNav handleClick={handleNavEvent} />
             {getForm()}
         </header>
     )
