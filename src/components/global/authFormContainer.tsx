@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 
 interface AuthFormContainerProps {
     children: ReactNode;
@@ -21,8 +22,8 @@ const AuthFormContainer: React.FC<AuthFormContainerProps> = (props: AuthFormCont
     };
     
     return(
-        <div className="fixed mx-auto top-56 backdrop-blur-md flex" ref={newRef}>
-            <span className="absolute top-0 right-0" onClick={() => props.onClosure()}>Close</span>
+        <div className="fixed mx-auto top-56 backdrop-blur-md flex px-8" ref={newRef}>
+            <CancelRoundedIcon className="absolute top-0 right-0" onClick={() => props.onClosure()} />
             {props.children}
         </div>
     );

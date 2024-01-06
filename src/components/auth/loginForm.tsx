@@ -38,7 +38,7 @@ const LoginForm = (props: LoginFormProps) => {
                 <input className="text-black" type="password" name="password" id="password" />
             </div>
             <button>
-                Signin
+                Submit
             </button>
         </form>
     );

@@ -25,6 +25,9 @@ const RegisterForm = () => {
                 <label className={labelClass} htmlFor="confirm_password">Confirm password</label>
                 <input className="text-black" type="confirm_password" name="confirm_password" id="confirm_password" />
             </div>
+            <button>
+                Submit
+            </button>
         </form>
     );
 };
