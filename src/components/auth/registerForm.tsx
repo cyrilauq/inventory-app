@@ -1,5 +1,6 @@
 "use client";
 
+import { registerUser } from "@/services/auth";
 import { FormEvent } from "react";
 
 interface IRegisterFormProps {
@@ -24,9 +25,16 @@ const RegisterForm = () => {
     const divClasses = "flex flex-row my-2 text-start";
     const inputClasses = "bg-gray-400";
 
-    function onRegister(event: FormEvent<IRegisterForm>) {
+    async function onRegister(event: FormEvent<IRegisterForm>) {
         event.preventDefault();
         const elements = event.currentTarget.elements;
+        const result = await registerUser({
+            username: elements.username.value,
+            firstname: elements.firstname.value,
+            name: elements.name.value,
+            password: elements.password.value,
+            email: elements.email.value
+        });
     }
     
     return(

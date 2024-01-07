@@ -14,14 +14,9 @@ const Header = () => {
         setFormName(event);
     }
 
-    async function handleLogin(args: { login: string, password: string}) {
-        console.log(args);
-        const result = await logUser(args.login, args.password);
-    }
-
     function getForm() {
         if(formName === "signin") {
-            return <AuthFormContainer onClosure={() => handleNavEvent("")}><LoginForm onLogin={handleLogin} /></AuthFormContainer>;
+            return <AuthFormContainer onClosure={() => handleNavEvent("")}><LoginForm /></AuthFormContainer>;
         } else if(formName === "signup") {
             return <AuthFormContainer onClosure={() => handleNavEvent("")}><RegisterForm /></AuthFormContainer>;
         }

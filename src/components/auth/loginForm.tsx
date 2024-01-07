@@ -16,7 +16,7 @@ interface Form extends HTMLFormElement {
     readonly elements: FormElements;
 }
 
-const LoginForm = (props: LoginFormProps) => {
+const LoginForm = () => {
     const labelClass = "w-[128px]";
     const divClasses = "flex flex-row my-2";
 
