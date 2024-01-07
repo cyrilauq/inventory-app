@@ -10,12 +10,18 @@ const axios = redaxios.create({
 
 const logUser = async (username: string, password: string) => {
     try {
+        console.log(getBaseUrl());
+        console.log(process.env.NODE_ENV);
+        
+        
         const response = await axios.post('/login', { username, password }) as any;
         if(!response.ok) {
             throw new ApiError(response.statusText || response.data.message, response.status);
         }
         return new User(response.data);
     } catch(err) {
+        console.log('chch');
+        
         if(err instanceof ApiError) {
             switch(err.status) {
                 case 400: {

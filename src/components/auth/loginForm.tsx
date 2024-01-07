@@ -1,5 +1,6 @@
 "use client";
 
+import { logUser } from "@/services/auth";
 import { FormEvent, SetStateAction, useState } from "react";
 
 interface LoginFormProps {
@@ -19,11 +20,11 @@ const LoginForm = (props: LoginFormProps) => {
     const labelClass = "w-[128px]";
     const divClasses = "flex flex-row my-2";
 
-    function onLogin(event: FormEvent<Form>) {
+    async function onLogin(event: FormEvent<Form>) {
         event.preventDefault();
         const elements = event.currentTarget.elements;
         console.log(elements);
-        props.onLogin({ login: elements.login.value, password: elements.password.value })
+        const result = await logUser(elements.login.value, elements.password.value);
     }
 
     return(

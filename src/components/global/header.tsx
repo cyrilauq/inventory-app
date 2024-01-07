@@ -1,5 +1,6 @@
 "use client";
 
+import { logUser } from "../../services/auth";
 import LoginForm from "../auth/loginForm";
 import RegisterForm from "../auth/registerForm";
 import AuthFormContainer from "./authFormContainer";
@@ -13,8 +14,9 @@ const Header = () => {
         setFormName(event);
     }
 
-    function handleLogin(args: { login: string, password: string}) {
-        console.log(args)
+    async function handleLogin(args: { login: string, password: string}) {
+        console.log(args);
+        const result = await logUser(args.login, args.password);
     }
 
     function getForm() {
