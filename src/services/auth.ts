@@ -19,7 +19,7 @@ const axios = redaxios.create({
 
 const logUser = async (username: string, password: string): Promise<ApiResponse> => {
     try {
-        const response = await axios.post('/login', { username, password }) as any;
+        const response = await axios.post('/login', { login: username, password }) as any;
         if(!response.ok) {
             throw new ApiError(response.statusText || response.data.message, response.status);
         }
@@ -44,7 +44,7 @@ const logUser = async (username: string, password: string): Promise<ApiResponse>
 
 const registerUser = async (args: RegisterArgs): Promise<ApiResponse> => {
     try {
-        const response = await axios.post('/register', { args }) as any;
+        const response = await axios.post('/register', { ...args }) as any;
         if(!response.ok) {
             throw new ApiError(response.statusText || response.data.message, response.status);
         }
