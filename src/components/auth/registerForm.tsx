@@ -3,10 +3,6 @@
 import { registerUser } from "@/services/auth";
 import { FormEvent, useState } from "react";
 
-interface IRegisterFormProps {
-    onRegister(args: {username: string, name: string, firstname: string, email: string, password: string }): void;
-}
-
 interface IRegisterFormElements extends HTMLFormControlsCollection   {
     username: HTMLInputElement;
     name: HTMLInputElement;
@@ -35,18 +31,36 @@ const RegisterForm = () => {
     async function onRegister(event: FormEvent<IRegisterForm>) {
         event.preventDefault();
         const elements = event.currentTarget.elements;
-        const result = await registerUser({
-            username: elements.username.value,
-            firstname: elements.firstname.value,
-            name: elements.name.value,
-            password: elements.password.value,
-            email: elements.email.value
-        });
-        if(result.code === 200) {
-            setMessage({ isError: false, message: "Account successfully created" });
+        const username = elements.username.value;
+        const firstname = elements.firstname.value;
+        const name = elements.name.value;
+        const password = elements.password.value;
+        const email = elements.email.value;
+        if(allFieldAreValid(username, firstname, name, password, document.getElementById("password")?.textContent ?? "", email)) {
+            const result = await registerUser({
+                username,
+                firstname,
+                name,
+                password,
+                email
+            });
+            if(result.code === 200) {
+                setMessage({ isError: false, message: "Account successfully created" });
+            } else {
+                setMessage({ isError: true, message: result.data + "" });
+            }
         } else {
-            setMessage({ isError: true, message: result.data + "" });
+            setMessage({ isError: true, message: "One or more field aren't valid" });
         }
+    }
+
+    function allFieldAreValid(username: string,
+        firstname: string,
+        name: string,
+        password: string,
+        confirm_password: string,
+        email: string): Boolean {
+        return validateName(name) && validateConfirmPassword(confirm_password) && validateEmail(email) && validateFirstName(firstname) && validateUsername(username);
     }
 
     function getMessage() {
@@ -59,67 +73,73 @@ const RegisterForm = () => {
         return <p className="text-green-600">{message.message}</p>
     }
     
-    function validateName(value: string): void {        
+    function validateName(value: string): Boolean {        
         if(value.length < 5) {
             setNameError("The name should at least have 5 characters.");
-            return;
+            return false;
         } else if(value.length > 100) {
             setNameError("The name shouldn't have more than 100 characters.");
-            return;
+            return false;
         }
-        setNameError("");        
+        setNameError("");
+        return true;
     }
     
-    function validateUsername(value: string): void {
+    function validateUsername(value: string): Boolean {
         if(value.length < 5) {
             setUsernameError("The username should at least have 5 characters.");
-            return;
+            return false;
         } else if(value.length > 100) {
             setUsernameError("The username shouldn't have more than 100 characters.");
-            return;
+            return false;
         }
         setUsernameError("");
+        return true;
     }
     
-    function validateFirstName(value: string): void {
+    function validateFirstName(value: string): Boolean {
         if(value.length < 5) {
             setFirstNameError("The firstname should at least have 5 characters.");
-            return;
+            return false;
         } else if(value.length > 100) {
             setFirstNameError("The firstname shouldn't have more than 100 characters.");
-            return;
+            return false;
         }
         setFirstNameError("");
+        return true;
     }
 
-    function validateEmail(value: string): void {
+    function validateEmail(value: string): Boolean {
         if(value.length === 0) {
             setEmailError("The email input is required.");
-            return;
+            return false;
         }
         setEmailError("");
+        return true;
     }
 
-    function validatePassword(value: string): void {
+    function validatePassword(value: string): Boolean {
         if(value.length < 10) {
             setPasswordError("The password should at least have 10 characters.");
-            return;
+            return false;
         } else if(value.length > 100) {
             setPasswordError("The password shouldn't have more than 100 characters.");
-            return;
-        } else if(!/([0-9+]|[A-Z+]|[a-z+])/.test(value)) {
+            return false;
+        } else if(!/([0-9+])/.test(value) || !/([A-Z+])/.test(value) || !/([a-z+])/.test(value)) {
             setPasswordError("The password should have at leat one majascule, one minuscule and one number.");
-            return;
+            return false;
         }
         setPasswordError("");
+        return true;
     }
 
-    function validateConfirmPassword(value: string): void {
-        if(document.getElementById("password")?.textContent !== value) {
+    function validateConfirmPassword(value: string): Boolean {
+        if(!value || document.getElementById("password")?.textContent !== value) {
             setConfirmPwdError("Confirm password id different than the password.");
-            return;
+            return false;
         }
         setConfirmPwdError("");
+        return true;
     }
 
     return(
