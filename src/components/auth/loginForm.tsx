@@ -1,6 +1,7 @@
 "use client";
 
 import { logUser } from "@/services/auth";
+import { useRouter } from "next/navigation";
 import { FormEvent, SetStateAction, useState } from "react";
 
 interface LoginFormProps {
@@ -17,6 +18,7 @@ interface Form extends HTMLFormElement {
 }
 
 const LoginForm = () => {
+    const router = useRouter();
     const labelClass = "w-[128px]";
     const divClasses = "flex flex-row my-2";
 
@@ -25,6 +27,9 @@ const LoginForm = () => {
         const elements = event.currentTarget.elements;
         console.log(elements);
         const result = await logUser(elements.login.value, elements.password.value);
+        if(result.code === 200) {
+            router.push('dashboard');
+        }
     }
 
     return(

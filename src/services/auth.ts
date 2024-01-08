@@ -1,6 +1,6 @@
 import redaxios from "redaxios";
 import { getBaseUrl } from "./utils";
-import { ApiError, BadRequestError, NotFoundError } from "@/module/exceptions/api";
+import { ApiError } from "@/module/exceptions/api";
 import { User } from "@/module/user";
 import { ApiResponse } from "@/module/apiResponse";
 
@@ -30,12 +30,10 @@ const logUser = async (username: string, password: string): Promise<ApiResponse>
     } catch(err) {
         if(err instanceof ApiError) {
             switch(err.status) {
-                case 400: {
+                case 400: 
                     return { code: 400, data: err.message };
-                }
-                case 404: {
+                case 404:
                     return { code: 404, data: "User not found" };
-                }
             }
         }
         return { code: undefined, data: err };
@@ -44,6 +42,7 @@ const logUser = async (username: string, password: string): Promise<ApiResponse>
 
 const registerUser = async (args: RegisterArgs): Promise<ApiResponse> => {
     try {
+        debugger
         const response = await axios.post('/register', { ...args }) as any;
         if(!response.ok) {
             throw new ApiError(response.statusText || response.data.message, response.status);
@@ -55,20 +54,41 @@ const registerUser = async (args: RegisterArgs): Promise<ApiResponse> => {
     } catch(err) {
         if(err instanceof ApiError) {
             switch(err.status) {
-                case 400: {
+                case 400:
                     return { code: 400, data: err.message };
-                }
-                case 404: {
+                case 404:
                     return { code: 404, data: "User not found" };
-                }
+                case 409:
+                    return { code: 404, data: err.message };
+            }
+        }
+        return { code: undefined, data: (err as any).data.message || err };
+    }
+};
+
+const refreshToken = async (token: string) => {
+    try {
+        const response = await axios.post('/refresh-token', {}, {
+            headers: {
+                'Authorization': token,
+            }
+        }) as any;
+        if(!response.ok) {
+            throw new ApiError(response.statusText || response.data.message, response.status);
+        }
+        return {
+            code: 200,
+            data: new User(response.data)
+        };
+    } catch(err) {
+        if(err instanceof ApiError) {
+            switch(err.status) {
+                case 401:
+                    return { code: 400, data: err.message };
             }
         }
         return { code: undefined, data: err };
     }
-};
-
-const refreshToken = (token: string) => {
-
 };
 
 export { logUser, refreshToken, registerUser };
