@@ -42,7 +42,6 @@ const logUser = async (username: string, password: string): Promise<ApiResponse>
 
 const registerUser = async (args: RegisterArgs): Promise<ApiResponse> => {
     try {
-        debugger
         const response = await axios.post('/register', { ...args }) as any;
         if(!response.ok) {
             throw new ApiError(response.statusText || response.data.message, response.status);
@@ -62,7 +61,7 @@ const registerUser = async (args: RegisterArgs): Promise<ApiResponse> => {
                     return { code: 404, data: err.message };
             }
         }
-        return { code: undefined, data: (err as any).data.message || err };
+        return { code: undefined, data: (err as any)?.data?.message || "Ann error occured" };
     }
 };
 
