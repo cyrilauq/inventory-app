@@ -25,6 +25,8 @@ const LoginForm = () => {
         const elements = event.currentTarget.elements;
         console.log(elements);
         const result = await logUser(elements.login.value, elements.password.value);
+        console.log(result.data);
+        
         if(result.code === 200) {
             toogleIsAuth(true);
             router.push('/dashboard');

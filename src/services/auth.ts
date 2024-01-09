@@ -23,9 +23,11 @@ const logUser = async (username: string, password: string): Promise<ApiResponse>
         if(!response.ok) {
             throw new ApiError(response.statusText || response.data.message, response.status);
         }
+        console.log(response);
+        
         return {
             code: 200,
-            data: new User(response.data)
+            data: new User({ ...response.data.data.user, ...response.data.data.tokens })
         };
     } catch(err) {
         if(err instanceof ApiError) {

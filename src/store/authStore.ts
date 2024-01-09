@@ -2,14 +2,19 @@ import { create } from "zustand";
 
 type InitialState = {
     isAuth: Boolean;
+    user: any;
+    tokens: any;
 };
 
 type Actions = {
     toggleAuth: (isAuth: Boolean) => void;
+    setUser: (user: any) => void;
 };
 
 const initialState: InitialState = {
     isAuth: false,
+    user: {},
+    tokens: {}
 }
 
 export const useStoreAuth = create<InitialState & Actions>((set) => ({
@@ -20,5 +25,12 @@ export const useStoreAuth = create<InitialState & Actions>((set) => ({
                 isAuth
             }
         });
-    }
+    },
+    setUser(user) {
+        set((state) => {
+            const newState = state;
+            state.user = user;
+            return newState;
+        });
+    },
 }));
