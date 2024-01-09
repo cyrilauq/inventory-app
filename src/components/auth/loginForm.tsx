@@ -1,5 +1,6 @@
 "use client";
 
+import { User } from "@/module/user";
 import { logUser } from "@/services/auth";
 import { useStoreAuth } from "@/store/authStore";
 import { useRouter } from "next/navigation";
@@ -16,7 +17,7 @@ interface Form extends HTMLFormElement {
 
 const LoginForm = () => {
     const router = useRouter();
-    const toogleIsAuth = useStoreAuth(state => state.toggleAuth);
+    const { toggleAuth, setUser } = useStoreAuth();
     const labelClass = "w-[128px]";
     const divClasses = "flex flex-row my-2";
 
@@ -28,7 +29,8 @@ const LoginForm = () => {
         console.log(result.data);
         
         if(result.code === 200) {
-            toogleIsAuth(true);
+            toggleAuth(true);
+            setUser(result.data as User);
             router.push('/dashboard');
         }
     }
