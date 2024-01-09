@@ -19,10 +19,12 @@ const Header = () => {
     }
 
     function getForm() {
-        if(formName === "signin") {
-            return <AuthFormContainer onClosure={() => handleNavEvent("")}><LoginForm /></AuthFormContainer>;
-        } else if(formName === "signup") {
-            return <AuthFormContainer onClosure={() => handleNavEvent("")}><RegisterForm /></AuthFormContainer>;
+        if(!isAuth) {
+            if(formName === "signin") {
+                return <AuthFormContainer onClosure={() => handleNavEvent("")}><LoginForm /></AuthFormContainer>;
+            } else if(formName === "signup") {
+                return <AuthFormContainer onClosure={() => handleNavEvent("")}><RegisterForm /></AuthFormContainer>;
+            }
         }
     }
 
