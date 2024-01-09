@@ -46,10 +46,7 @@ const RegisterForm = () => {
         if(message.message.length === 0) {
             return null;
         }
-        if(message.isError) {
-            return <p className="text-red-600">{message.message}</p>
-        }
-        return <p className="text-green-600">{message.message}</p>
+        return message.isError ? <p className="text-red-600">{message.message}</p> : <p className="text-green-600">{message.message}</p>
     }
     
     function validateName(value: string): string | undefined {        
@@ -98,10 +95,7 @@ const RegisterForm = () => {
     }
 
     function validateConfirmPassword(value: string): string | undefined {
-        if(password !== value) {
-            return "Confirm password id different than the password.";
-        }
-        return undefined;
+        return password !== value ? "Confirm password id different than the password." : undefined;
     }
 
     return(

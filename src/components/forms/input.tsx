@@ -29,7 +29,7 @@ const Input = (props: IInputProps) => {
             </div>
             {errorMsg.length !== 0 ? <p className="text-red-600">{errorMsg}</p> : undefined}
         </div>
-    )
+    );
 };
 
 export default Input;
