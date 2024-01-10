@@ -1,4 +1,4 @@
-export interface ApiResponse {
+export interface ApiResponse<T> {
     code: number | undefined;
-    data: Object | unknown;
+    data: T | unknown;
 }

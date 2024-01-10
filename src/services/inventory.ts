@@ -10,7 +10,7 @@ const axios = redaxios.create({
     responseType: "json"
 });
 
-const getInventories = async (): Promise<ApiResponse> => {
+const getInventories = async (): Promise<ApiResponse<any>> => {
     const { accessToken, email } = useStoreAuth.getState().user;
     
     try {
@@ -26,7 +26,6 @@ const getInventories = async (): Promise<ApiResponse> => {
             code: 200,
             data: (response.data.data as any[]).map(d => { return { id: d._id, name: d.name, userId: d.userId } })
         };
-        
     } catch(err) {
         return {
             code: (err as any).code || (err as any).status || 500,

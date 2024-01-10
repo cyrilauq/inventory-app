@@ -17,7 +17,7 @@ const axios = redaxios.create({
     responseType: "json"
 });
 
-const logUser = async (username: string, password: string): Promise<ApiResponse> => {
+const logUser = async (username: string, password: string): Promise<ApiResponse<User>> => {
     try {
         const response = await axios.post('/login', { login: username, password }) as any;
         if(!response.ok) {
@@ -42,7 +42,7 @@ const logUser = async (username: string, password: string): Promise<ApiResponse>
     }
 };
 
-const registerUser = async (args: RegisterArgs): Promise<ApiResponse> => {
+const registerUser = async (args: RegisterArgs): Promise<ApiResponse<any>> => {
     try {
         const response = await axios.post('/register', { ...args }) as any;
         if(!response.ok) {
