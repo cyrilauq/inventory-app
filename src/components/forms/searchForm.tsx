@@ -1,8 +1,6 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import Input from './input';
-import { useStoreAuth } from '@/store/authStore';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface ISearchForm {
     onSubmit: (input: string) => void;

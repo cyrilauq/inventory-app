@@ -3,8 +3,8 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 
 interface IInventoryItemProps {
-    id: string;
-    name: string;
+    id?: string;
+    name?: string;
     count?: number;
     editCallBack?: (itemId: string) => void;
     deleteCallBack?: (itemId: string) => void;
@@ -13,31 +13,40 @@ interface IInventoryItemProps {
 
 const InventoryItem = ( props: IInventoryItemProps ) => {
     function handleDelete() {
-        if(props.deleteCallBack) {
+        if(props.deleteCallBack && props.id) {
             props.deleteCallBack(props.id);
         }
     }
 
     function handleAdd() {
-        if(props.addCallBack) {
+        if(props.addCallBack && props.id) {
             props.addCallBack(props.id);
         }
     }
 
     function handleUpdate() {
-        if(props.editCallBack) {
+        if(props.editCallBack && props.id) {
             props.editCallBack(props.id);
         }
     }
 
+    function getActionButton() {
+        if(props.id) {
+            return <>
+                    <AddCircleRoundedIcon onClick={handleAdd} titleAccess='add item' />
+                    <EditRoundedIcon onClick={handleUpdate} titleAccess='update inventory' />
+                    <DeleteRoundedIcon onClick={handleDelete} titleAccess='delete inventory' />
+            </>;
+        }
+        return undefined
+    }
+
     return(
         <div className='flex flex-row justify-around min-w-[450px]'>
-            <span>{props.name}</span>
-            <span>{props.count || 0}</span>
+            <span>{props.name || "Name"}</span>
+            <span>{props.count || "Count"}</span>
             <div>
-                <AddCircleRoundedIcon onClick={handleAdd} titleAccess='add item' />
-                <EditRoundedIcon onClick={handleUpdate} titleAccess='update inventory' />
-                <DeleteRoundedIcon onClick={handleDelete} titleAccess='delete inventory' />
+                {getActionButton() || "Action buttons"}
             </div>
         </div>
     );

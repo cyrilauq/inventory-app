@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import { getBaseUrl } from "@/services/utils";
 import { useStoreAuth } from "@/store/authStore";
 import { ApiError } from "@/module/exceptions/api";
-import { ApiResponse } from '../module/apiResponse';
 
 interface IUserApiProps {
     endPoint: string;

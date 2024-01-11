@@ -4,7 +4,7 @@ import { useStoreAuth } from "@/store/authStore";
 import { logUser } from "../../services/auth";
 import LoginForm from "../auth/loginForm";
 import RegisterForm from "../auth/registerForm";
-import AuthFormContainer from "./authFormContainer";
+import FormContainer from "./formContainer";
 import AuthNav from "./authNav";
 import { useState } from 'react';
 import Link from "next/link";
@@ -21,9 +21,9 @@ const Header = () => {
     function getForm() {
         if(!isAuth) {
             if(formName === "signin") {
-                return <AuthFormContainer onClosure={() => handleNavEvent("")}><LoginForm /></AuthFormContainer>;
+                return <FormContainer onClosure={() => handleNavEvent("")}><LoginForm /></FormContainer>;
             } else if(formName === "signup") {
-                return <AuthFormContainer onClosure={() => handleNavEvent("")}><RegisterForm /></AuthFormContainer>;
+                return <FormContainer onClosure={() => handleNavEvent("")}><RegisterForm /></FormContainer>;
             }
         }
     }

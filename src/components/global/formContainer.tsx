@@ -6,7 +6,7 @@ interface AuthFormContainerProps {
     onClosure(): void;
 }
 
-const AuthFormContainer: React.FC<AuthFormContainerProps> = (props: AuthFormContainerProps) => {
+const FormContainer: React.FC<AuthFormContainerProps> = (props: AuthFormContainerProps) => {
     const newRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         document.addEventListener("mousedown", handleOutsideClick);
@@ -29,4 +29,4 @@ const AuthFormContainer: React.FC<AuthFormContainerProps> = (props: AuthFormCont
     );
 };
 
-export default AuthFormContainer;
+export default FormContainer;
