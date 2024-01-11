@@ -1,3 +1,4 @@
+import Button from "../global/button";
 import Input from "./input";
 
 interface IAddInventoryProps {
@@ -14,10 +15,13 @@ const AddInventory = ( props: IAddInventoryProps ) => {
     }
 
     return(
-        <div>
+        <div className="flex flex-col items-center">
             <h2>New inventory</h2>
             <Input id={"name"} name={"name"} type={"text"} label="Name" rules="required|min:3|max:5" />
-            <button onClick={() => handleAdd()}>Add</button>
+            <Input id={"description"} name={"description"} type={"textarea"} label="Description" rules="required|text" />
+            <div className="w-fit">
+                <Button onClick={() => handleAdd()} text="Add" />
+            </div>
         </div>
     );
 };
