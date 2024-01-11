@@ -22,8 +22,8 @@ const FormContainer: React.FC<AuthFormContainerProps> = (props: AuthFormContaine
     };
     
     return(
-        <div className="fixed mx-auto top-56 backdrop-blur-md flex px-8" ref={newRef}>
-            <CancelRoundedIcon className="absolute top-0 right-0" onClick={() => props.onClosure()} />
+        <div className="fixed mx-auto top-56 bg-cyan-400 bg-opacity-20 backdrop-blur-sm flex px-8 self-center rounded-md" ref={newRef}>
+            <CancelRoundedIcon className="absolute top-0 right-0 cursor-pointer" onClick={() => props.onClosure()} />
             {props.children}
         </div>
     );

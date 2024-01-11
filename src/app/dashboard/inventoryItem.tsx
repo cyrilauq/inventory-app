@@ -33,9 +33,9 @@ const InventoryItem = ( props: IInventoryItemProps ) => {
     function getActionButton() {
         if(props.id) {
             return <>
-                    <AddCircleRoundedIcon onClick={handleAdd} titleAccess='add item' />
-                    <EditRoundedIcon onClick={handleUpdate} titleAccess='update inventory' />
-                    <DeleteRoundedIcon onClick={handleDelete} titleAccess='delete inventory' />
+                    <AddCircleRoundedIcon onClick={handleAdd} className="cursor-pointer" titleAccess='add item' />
+                    <EditRoundedIcon onClick={handleUpdate} className="cursor-pointer" titleAccess='update inventory' />
+                    <DeleteRoundedIcon onClick={handleDelete} className="cursor-pointer" titleAccess='delete inventory' />
             </>;
         }
         return undefined

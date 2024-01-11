@@ -10,10 +10,15 @@ import { useRouter } from "next/navigation";
 import Scanner from "@/components/scanner";
 import FormContainer from "@/components/global/formContainer";
 
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import Button from "@/components/global/button";
+import AddInventory from "@/components/forms/addInventory";
+
 const Dashboard = () => {
     const { data: inventories, loading } = useApi<IInventory[]>({ endPoint: '/user/inventories' });
     const router = useRouter();
     const [scanVisible, setScanVisible] = useState(false);
+    const [addVisible, setAddVisible] = useState(false);
     const { isAuth } = useStoreAuth();
 
     useEffect(() => {
@@ -48,30 +53,44 @@ const Dashboard = () => {
         return <FormContainer onClosure={() => setScanVisible(false)}><Scanner onScanned={onScanned} /></FormContainer>
     }
 
+    function addInventory() {
+        console.log("addInventory called");
+        setAddVisible(false);
+    }
+
     function getDashboard() {
         if(loading) {
             return <p>Loading....</p>
         }
         return <>
             <span>You have {inventories && inventories.length} intentory</span>
-            <div className="flex flex-col">                
+            <div className="flex flex-col">
                 <InventoryItem />
-                {inventories && inventories.map(item => <InventoryItem key={item.id} id={item.id} name={item.name} editCallBack={editInventory} deleteCallBack={deleteInventory} addCallBack={addToInventory} />)}
+                {inventories && inventories.map(item => <InventoryItem key={item.id} id={item.id} count={0} name={item.name} editCallBack={editInventory} deleteCallBack={deleteInventory} addCallBack={addToInventory} />)}
             </div>
         </>;
     }
 
+    function getAddForm() {
+        if(addVisible) {
+            return <FormContainer onClosure={() => setAddVisible(false)}><AddInventory onAdded={addInventory} /></FormContainer>
+        }
+        return undefined;
+    }
+
     return(
-        <>
+        <div className="text-center flex flex-col min-w-[50%]">
             <h2>Dashboard</h2>
-            <div className="flex flex-row">
+            <Button onClick={() => setAddVisible(!addVisible)} text="New inventory" operation="add" />
+            <div className="flex flex-row self-center">
                 <SearchForm onSubmit={onSearch} />
                 <span>ou</span>
                 <button onClick={() => setScanVisible(true)}>Scan</button>
             </div>
             {getScanner()}
             {getDashboard()}
-        </>
+            {getAddForm()}
+        </div>
     );
 };
 
