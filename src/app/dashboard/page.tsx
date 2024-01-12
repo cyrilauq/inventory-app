@@ -13,20 +13,21 @@ import FormContainer from "@/components/global/formContainer";
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import Button from "@/components/global/button";
 import AddInventory from "@/components/forms/addInventory";
+import PrivateRoute from "@/components/global/privateRoute";
 
 const Dashboard = () => {
-    const { data: inventories, loading } = useApi<IInventory[]>({ endPoint: '/user/inventories' });
     const router = useRouter();
     const [scanVisible, setScanVisible] = useState(false);
     const [addVisible, setAddVisible] = useState(false);
     const { isAuth } = useStoreAuth();
+    const { data: inventories, loading } = useApi<IInventory[]>({ endPoint: '/user/inventories' });
 
-    useEffect(() => {
-        if(!isAuth) {
-            router.push("/");
-        }
-        console.log(inventories);
-    }, [inventories, isAuth, router]);
+    // useEffect(() => {
+    //     if(!isAuth) {
+    //         router.push("/");
+    //     }
+    //     console.log(inventories);
+    // }, [inventories, isAuth, router]);
 
     function editInventory(inventoryId: String): void {
         console.log("editInventory called for: " + inventoryId);
@@ -79,18 +80,20 @@ const Dashboard = () => {
     }
 
     return(
-        <div className="text-center flex flex-col min-w-[50%]">
-            <h2>Dashboard</h2>
-            <Button onClick={() => setAddVisible(!addVisible)} text="New inventory" operation="add" />
-            <div className="flex flex-row self-center">
-                <SearchForm onSubmit={onSearch} />
-                <span>ou</span>
-                <button onClick={() => setScanVisible(true)}>Scan</button>
+        <PrivateRoute isAuth={isAuth}>
+            <div className="text-center flex flex-col min-w-[50%]">
+                <h2>Dashboard</h2>
+                <Button onClick={() => setAddVisible(!addVisible)} text="New inventory" operation="add" />
+                <div className="flex flex-row self-center">
+                    <SearchForm onSubmit={onSearch} />
+                    <span>ou</span>
+                    <button onClick={() => setScanVisible(true)}>Scan</button>
+                </div>
+                {getScanner()}
+                {getDashboard()}
+                {getAddForm()}
             </div>
-            {getScanner()}
-            {getDashboard()}
-            {getAddForm()}
-        </div>
+        </PrivateRoute>
     );
 };
 
