@@ -1,6 +1,7 @@
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import Link from 'next/link';
 
 interface IInventoryItemProps {
     id?: string;
@@ -43,7 +44,7 @@ const InventoryItem = ( props: IInventoryItemProps ) => {
 
     return(
         <div className='flex flex-row justify-around min-w-[450px]'>
-            <span className="bg-gray-400 w-2/5 text-left">{props.name || "Name"}</span>
+            <span className="bg-gray-400 w-2/5 text-left">{props.name ? <Link href={`/user/inventories/${props.id}`}>props.name</Link> : "Name"}</span>
             <span className="w-1/5">{props.count || "Count"}</span>
             <div className="bg-gray-400 w-1/4 text-center justify-around">
                 {getActionButton() || "Action buttons"}
