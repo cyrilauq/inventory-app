@@ -5,6 +5,7 @@ import { IInventory } from '../../../../module/inventory';
 import fetch from '@/services/api';
 import { useStoreAuth } from '@/store/authStore';
 import { useEffect, useState } from 'react';
+import InventoryItem from './inventoryItem';
 
 interface IParams {
     inventory: string
@@ -28,9 +29,12 @@ const Inventory = ( { params }: {params: IParams} ) => {
 
     return(
         <PrivateRoute isAuth={isAuth}>
-            <div>
+            <div className="min-w-[600px]">
                 <h2>Inventory</h2>
                 <p>{data?.name}</p>
+                <p>Item count: {data?.items?.length}</p>
+                <InventoryItem />
+                {data?.items?.map(i => <InventoryItem key={i.id} barcode={i.barcode} id={i.id} description={"coucou"} name={i.name} price={0} qty={i.qty} />)}
             </div>
         </PrivateRoute>
     );
