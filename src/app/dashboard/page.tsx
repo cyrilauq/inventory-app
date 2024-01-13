@@ -10,24 +10,15 @@ import { useRouter } from "next/navigation";
 import Scanner from "@/components/scanner";
 import FormContainer from "@/components/global/formContainer";
 
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import Button from "@/components/global/button";
 import AddInventory from "@/components/forms/addInventory";
 import PrivateRoute from "@/components/global/privateRoute";
 
 const Dashboard = () => {
-    const router = useRouter();
     const [scanVisible, setScanVisible] = useState(false);
     const [addVisible, setAddVisible] = useState(false);
     const { isAuth } = useStoreAuth();
     const { data: inventories, loading } = useApi<IInventory[]>({ endPoint: '/user/inventories' });
-
-    // useEffect(() => {
-    //     if(!isAuth) {
-    //         router.push("/");
-    //     }
-    //     console.log(inventories);
-    // }, [inventories, isAuth, router]);
 
     function editInventory(inventoryId: String): void {
         console.log("editInventory called for: " + inventoryId);
@@ -56,7 +47,9 @@ const Dashboard = () => {
 
     function addInventory() {
         console.log("addInventory called");
-        setAddVisible(false);
+        setTimeout(() => {
+            setAddVisible(false);
+        }, 1000);
     }
 
     function getDashboard() {

@@ -2,7 +2,6 @@ import { useState } from "react";
 import Button from "../global/button";
 import Input from "./input";
 import { IInventory } from "@/module/inventory";
-import useApi from "@/hooks/useApi";
 import fetch from "@/services/api";
 
 interface IAddInventoryProps {
@@ -12,15 +11,16 @@ interface IAddInventoryProps {
 const AddInventory = ( props: IAddInventoryProps ) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    // const { loading, isSuccess } = useApi<IInventory>({ endPoint: '/user/inventories', method: 'post' });
     const [isLoading, setIsLoading] = useState(false);
     const [isSumbited, setIsSumbited] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState({ code: 404, data: "" });
 
-    function handleAdd() {
+    async function handleAdd() {
         setIsLoading(true);
-        const { isSuccess: succed, data, error: apiError } = fetch<IInventory>({ endPoint: '/user/inventories', method: 'post', data: { name, description } });
+        const result = await fetch<IInventory>({ endPoint: '/user/inventories', method: 'post', data: { name, description } });
+        console.log(result);
+        const { isSuccess: succed, data, error: apiError } = result;
         setIsSuccess(succed);
         setIsSumbited(true);
         setIsLoading(false);

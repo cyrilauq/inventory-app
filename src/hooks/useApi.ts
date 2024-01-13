@@ -12,7 +12,7 @@ interface IUserApiProps {
 }
 
 function useApi<T>( props: IUserApiProps ) {
-    const { accessToken } = useStoreAuth(state => state.user);
+    const { accessToken } = useStoreAuth(state => state.user || { accessToken: "" });
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState({ code: 200, data: "" });

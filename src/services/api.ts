@@ -11,8 +11,8 @@ interface IUserApiProps {
     data?: any;
 }
 
-function fetch<T>( props: IUserApiProps ) {
-    const { accessToken } = useStoreAuth.getState().user;
+async function fetch<T>( props: IUserApiProps ) {
+    const { accessToken } = useStoreAuth.getState().user!;
     const axios = redaxios.create({
         baseURL: getBaseUrl(),
         responseType: "json"
@@ -22,15 +22,15 @@ function fetch<T>( props: IUserApiProps ) {
     let error = { code: 200, data: "" };
     let isSuccess = false;
 
-    const getRequest = () => {
+    const getRequest = async () => {
         switch(props.method?.toLocaleLowerCase()) {
             case "post":
-                return axios.post(props.endPoint, props.data,
+                return await axios.post(props.endPoint, props.data,
                 {
                     headers: { "Authorization": "Bearer " + accessToken }
                 }) as any;
             default:
-                return axios.get(props.endPoint, {
+                return await axios.get(props.endPoint, {
                     headers: { "Authorization": "Bearer " + accessToken }
                 }) as any;
         }
@@ -38,6 +38,7 @@ function fetch<T>( props: IUserApiProps ) {
 
     const fetchData = async () => {
       console.log('Fetching data');
+      debugger
       try {
         const response = await getRequest();
         if (!response.ok) {
@@ -45,6 +46,7 @@ function fetch<T>( props: IUserApiProps ) {
         }
         data = response.data.data as T;
         isSuccess = true;
+        console.log(data, " ", isSuccess);
       } catch (err) {
         error = {
           code: (err as any).code || (err as any).status || 500,
@@ -52,8 +54,8 @@ function fetch<T>( props: IUserApiProps ) {
         };
       }
     };
-    fetchData();
-
+    await fetchData();
+    debugger
     return { data, error, isSuccess };
 };
 

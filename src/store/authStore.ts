@@ -3,13 +3,13 @@ import { create } from "zustand";
 
 type InitialState = {
     isAuth: Boolean;
-    user: User;
+    user: User | undefined;
     tokens: any;
 };
 
 type Actions = {
     toggleAuth: (isAuth: Boolean) => void;
-    setUser: (user: User) => void;
+    setUser: (user: User | undefined) => void;
 };
 
 const initialState: InitialState = {
@@ -22,9 +22,13 @@ export const useStoreAuth = create<InitialState & Actions>((set) => ({
     ...initialState,
     toggleAuth(isAuth: Boolean) {
         set((state) => {
+            state.isAuth = isAuth;
+            if(!isAuth) {
+                state.setUser(undefined);
+            }
             return {
                 isAuth
-            }
+            };
         });
     },
     setUser(user) {
