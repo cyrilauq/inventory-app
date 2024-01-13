@@ -29,10 +29,9 @@ const Inventory = ( { params }: {params: IParams} ) => {
 
     return(
         <PrivateRoute isAuth={isAuth}>
-            <div className="min-w-[600px]">
-                <h2>Inventory</h2>
-                <p>{data?.name}</p>
-                <p>Item count: {data?.items?.length}</p>
+            <div className="min-w-[600px] text-left">
+                <h2 className="underline underline-offset-4 my-2">Inventory name: {data?.name}</h2>
+                <p className="mb-2">Item count: {data?.items?.length}</p>
                 <InventoryItem />
                 {data?.items?.map(i => <InventoryItem key={i.id} barcode={i.barcode} id={i.id} description={"coucou"} name={i.name} price={0} qty={i.qty} />)}
             </div>
