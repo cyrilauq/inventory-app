@@ -11,7 +11,7 @@ const axios = redaxios.create({
 });
 
 const getInventories = async (): Promise<ApiResponse<any>> => {
-    const { accessToken, email } = useStoreAuth.getState().user;
+    const { accessToken, email } = useStoreAuth.getState().user || { accessToken: "", email: "" };
     
     try {
         const response = await axios.get('/user/inventories', {
