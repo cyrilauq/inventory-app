@@ -38,7 +38,6 @@ async function fetch<T>( props: IUserApiProps ) {
 
     const fetchData = async () => {
       console.log('Fetching data');
-      debugger
       try {
         const response = await getRequest();
         if (!response.ok) {
@@ -55,7 +54,6 @@ async function fetch<T>( props: IUserApiProps ) {
       }
     };
     await fetchData();
-    debugger
     return { data, error, isSuccess };
 };
 
