@@ -19,3 +19,15 @@ export class User {
     }
 
 }
+
+export interface IUser {
+    id: string;
+    username: string;
+    name: string;
+    firstname: string;
+    email: string;
+    token: string;
+    refreshToken: string;
+    accessToken: string;
+    isAdmin?: boolean;
+}

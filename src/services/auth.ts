@@ -1,7 +1,7 @@
 import redaxios from "redaxios";
 import { getBaseUrl } from "./utils";
 import { ApiError } from "@/module/exceptions/api";
-import { User } from "@/module/user";
+import { IUser, User } from "@/module/user";
 import { ApiResponse } from "@/module/apiResponse";
 
 interface RegisterArgs {
@@ -17,7 +17,7 @@ const axios = redaxios.create({
     responseType: "json"
 });
 
-const logUser = async (username: string, password: string): Promise<ApiResponse<User>> => {
+const logUser = async (username: string, password: string): Promise<ApiResponse<IUser>> => {
     try {
         const response = await axios.post('/login', { login: username, password }) as any;
         if(!response.ok) {
@@ -27,7 +27,7 @@ const logUser = async (username: string, password: string): Promise<ApiResponse<
         
         return {
             code: 200,
-            data: new User({ ...response.data.data.user, ...response.data.data.tokens })
+            data: { ...response.data.data.user, ...response.data.data.tokens, isAdmin: response.data.data.user.roles.includes("admin") }
         };
     } catch(err) {
         if(err instanceof ApiError) {

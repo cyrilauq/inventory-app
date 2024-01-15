@@ -1,20 +1,20 @@
-import { User } from "@/module/user";
+import { IUser } from "@/module/user";
 import { create } from "zustand";
 
 type InitialState = {
     isAuth: Boolean;
-    user: User | undefined;
+    user: IUser | undefined;
     tokens: any;
 };
 
 type Actions = {
     toggleAuth: (isAuth: Boolean) => void;
-    setUser: (user: User | undefined) => void;
+    setUser: (user: IUser | undefined) => void;
 };
 
 const initialState: InitialState = {
     isAuth: false,
-    user: new User({ username: "", name: "", firstname: "", email: "", accessToken: "", refreshToken: "", token: "" }),
+    user: { username: "", name: "", firstname: "", email: "", accessToken: "", refreshToken: "", token: "", isAdmin: false },
     tokens: {}
 }
 

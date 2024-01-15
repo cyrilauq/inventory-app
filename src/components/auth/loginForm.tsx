@@ -5,6 +5,7 @@ import { logUser } from "@/services/auth";
 import { useStoreAuth } from "@/store/authStore";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
+import { IUser } from '../../module/user';
 
 interface FormElements extends HTMLFormControlsCollection   {
     login: HTMLInputElement;
@@ -30,7 +31,7 @@ const LoginForm = () => {
         
         if(result.code === 200) {
             toggleAuth(true);
-            setUser(result.data as User);
+            setUser(result.data as IUser);
             router.push('/dashboard');
         }
     }

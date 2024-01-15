@@ -2,8 +2,11 @@ import { useStoreAuth } from "@/store/authStore";
 import Link from "next/link";
 
 const HeaderNav = () => {
-    const { isAuth } = useStoreAuth();
+    const { isAuth, user } = useStoreAuth();
     const liClasses = "mx-2";
+
+    console.log(user?.isAdmin);
+    
 
     return(
         <ul className="self-start flex flex-row">
@@ -16,6 +19,7 @@ const HeaderNav = () => {
             <li className={liClasses}>
                 {isAuth && <Link href="/dashboard">Dashboard</Link>}
             </li>
+            {user?.isAdmin && <li><Link href="/admin_panel">Admin panel</Link></li>}
         </ul>
     );
 };
