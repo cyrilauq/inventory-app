@@ -18,8 +18,8 @@ const AuthNav = ( props: AuthNavProps ) => {
     return(
         <>
             <ul className="fixed right-4 top-4 flex">
-                <li className="me-6" onClick={() => display("signin")}>Sign in</li>
-                <li onClick={() => display("signup")}>Sign up</li>
+                <li className="me-6 cursor-pointer" onClick={() => display("signin")}>Sign in</li>
+                <li className="cursor-pointer" onClick={() => display("signup")}>Sign up</li>
             </ul>
         </>
     );

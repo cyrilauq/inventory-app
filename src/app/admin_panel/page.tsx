@@ -5,6 +5,7 @@ import { useStoreAuth } from "@/store/authStore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from 'react';
 import fetch from "@/services/api";
+import UserPanelItem from "./userPanelItem";
 
 const AdminPanel = () => {
     const { user, isAuth } = useStoreAuth();
@@ -24,17 +25,17 @@ const AdminPanel = () => {
         tru();
     }, []);
 
+    function onAction(action: CrudActions, id: string) {
+
+    }
+
     return(
         <div>
             <h2>Admin panel</h2>
             <div>
-                <h3>Products</h3>
-            </div>
-            <div>
                 <h3>Users</h3>
-                <ul>
-                    {users.map(u => <li key={u.id}>{u.name}</li>)}
-                </ul>
+                <UserPanelItem />
+                {users.map((u, i) => <UserPanelItem key={u.id} className={i % 2 === 0 ? "bg-gray-400" : ""} email={u.email} userId={u.id} fullname={`${u.name} ${u.firstname}`} username={u.username} onAction={onAction} />)}
             </div>
         </div>
     )
