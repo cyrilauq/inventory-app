@@ -25,6 +25,14 @@ async function fetch<T>( props: IUserApiProps ) {
     const getRequest = async () => {
         switch(props.method?.toLocaleLowerCase()) {
             case "post":
+                if(Object.keys(props.data).some(k => props.data[k] instanceof File)) {
+                    const formData = new FormData();
+                    Object.entries(props.data).forEach(([key, value]: [string, any]) => formData.append(key, value));
+                    return await axios.post(props.endPoint, formData,
+                    {
+                        headers: { "Authorization": "Bearer " + accessToken }
+                    }) as any;
+                }
                 return await axios.post(props.endPoint, props.data,
                 {
                     headers: { "Authorization": "Bearer " + accessToken }
