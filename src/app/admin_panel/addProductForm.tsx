@@ -15,6 +15,7 @@ const AddProductForm = () => {
     const [file, setFile] = useState(null);
     const fileTypes = ["JPG", "PNG", "JPEG"];
     const [message, setMessage] = useState<ApiResponse<string>>();
+    const unitWeigths = ['kg', 'lbs']
 
     const addProduct =  async () => {
         const result = await fetch<any>({ endPoint: '/product', method: 'post', data: { name, description, weight, weightUnit: unit, barcode, file } });
@@ -38,18 +39,20 @@ const AddProductForm = () => {
     };
 
     return(
-        <div>
-            <h3>Add a product</h3>
+        <div className="flex flex-col">
+            <h3 className="text-center my-4">Add a product</h3>
             {getMessage()}
             <Input name="name" type="text" id="name" label="Name" onBlur={setName} rules="required|min:5|max:50" />
             <Input name="description" type="textarea" id="description" label="Description" onBlur={setDescription} rules="required|min:5|max:250" />
             <div className="flex flex-row">
-                <Input name="weight" type="number" id="weight" label="weight" onBlur={setWeight} rules="required" />
-                <Input name="unit" type="text" id="unit" label="unit" onBlur={setUnit} rules="required|min:2|max:5" />
+                <Input name="weight" type="number" id="weight" label="Weight" onBlur={setWeight} rules="required" />
+                <select onChange={e => setUnit(e.target.value)} className="bg-transparent">
+                    {unitWeigths.map(e => <option key={e} value={e} className="text-black">{e}</option>)}
+                </select>
             </div>
-            <Input name="barcode" type="text" id="barcode" label="barcode" onBlur={setBarcode} rules="required|min:5|max:50" />
+            <Input name="barcode" type="text" id="barcode" label="Barcode" onBlur={setBarcode} rules="required|min:5|max:50" />
             <FileUploader handleChange={handleFileChange} name="file" types={fileTypes} />
-            <button onClick={() => addProduct()}>Add product</button>
+            <button className="self-center my-4" onClick={() => addProduct()}>Add product</button>
         </div>
     );
 };
