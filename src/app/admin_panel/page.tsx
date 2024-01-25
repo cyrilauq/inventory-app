@@ -11,16 +11,11 @@ import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import AddProductForm from "./addProductForm";
 import FormContainer from "@/components/global/formContainer";
 import Button from "@/components/global/button";
+import AdminRoute from "@/components/global/adminRoute";
 
 const AdminPanel = () => {
-    const { user, isAuth } = useStoreAuth();
-    const router = useRouter();
     const [users, setUsers] = useState<IUser[]>([])
     const [isVisible, setIsVisible] = useState(false);
-
-    if(!isAuth || !user?.isAdmin) {
-        router.push("/");
-    }
 
     useEffect(() => {
         async function tru() {
@@ -45,7 +40,7 @@ const AdminPanel = () => {
     }
 
     return(
-        <>
+        <AdminRoute>
             {getAddProdForm()}
             <div>
                 <h2>Admin panel</h2>
@@ -68,7 +63,7 @@ const AdminPanel = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </AdminRoute>
     )
 };
 

@@ -56,8 +56,8 @@ async function fetch<T>( props: IUserApiProps ) {
         console.log(data, " ", isSuccess);
       } catch (err) {
         error = {
-          code: (err as any).code || (err as any).status || 500,
-          data: (err as any).message || 'An error occurred'
+          code: (err as any).code || (err as ApiError).status || 500,
+          data: (err as any).data.message || 'An error occurred'
         };
       }
     };
