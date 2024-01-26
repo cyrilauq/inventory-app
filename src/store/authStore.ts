@@ -14,7 +14,7 @@ type Actions = {
 
 const initialState: InitialState = {
     isAuth: false,
-    user: { username: "", name: "", firstname: "", email: "", accessToken: "", refreshToken: "", token: "", isAdmin: false },
+    user: { id: "", username: "", name: "", firstname: "", email: "", accessToken: "", refreshToken: "", token: "", isAdmin: false },
     tokens: {}
 }
 
